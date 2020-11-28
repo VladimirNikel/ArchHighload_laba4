@@ -8,6 +8,7 @@
 #Для упрощения данные в обоих сервисах вынесены в код (БД использовать не нужно).
 #Взаимодействие между сервисами должно осуществляться по RPC с использованием gRPC или Thrift.
 #Сервис А принимает запросы GraphQL
+import grpc
 
 from typing import Optional
 from fastapi import FastAPI
@@ -109,7 +110,7 @@ def print_web():
 
 @app.get("/verif")
 def verif(data: str):
-	print("data: ", data)
+	#print("data: ", data)					# { status (telefonNumber: "1545784848818", pin: "3333")}
 	result = schema.execute(data)
 	return str(result)
 #	for i in telefon_list:

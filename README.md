@@ -32,4 +32,6 @@
 	+ FastAPI `sudo pip3 install fastapi`
 	+ Unicorn `sudo pip3 install uvicorn`
 	+ graphene `sudo pip3 install graphene`
+	+ grpcio `sudo pip3 install grpcio`
+	+ grpcio-tools `sudo pip3 install grpcio-tools`
 
