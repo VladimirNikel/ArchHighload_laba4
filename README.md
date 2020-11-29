@@ -41,14 +41,19 @@
 	cd grpc
 	mkdir -p cmake/build
 	pushd cmake/build
-	cmake -DgRPC_INSTALL=ON \
-		-DgRPC_BUILD_TESTS=OFF \
-		-DCMAKE_INSTALL_PREFIX=$MY_INSTALL_DIR \
-		../..
-	make -j
-	make install
-	popd
+	cmake ../.. -DgRPC_INSTALL=ON 		\
+		-DCMAKE_BUILD_TYPE=module 		\
+		-DgRPC_ABSL_PROVIDER=module 	\
+		-DgRPC_CARES_PROVIDER=module 	\
+		-DgRPC_PROTOBUF_PROVIDER=module \
+		-DgRPC_RE2_PROVIDER=module 		\
+		-DgRPC_SSL_PROVIDER=module 		\
+		-DgRPC_ZLIB_PROVIDER=module
+	make
+	sudo make install
 	```
+
+	На всякий случай оставлю [ссылку](https://github.com/grpc/grpc/blob/master/BUILDING.md).
 - Установленные модули:
 	+ FastAPI `sudo pip3 install fastapi`
 	+ Unicorn `sudo pip3 install uvicorn`

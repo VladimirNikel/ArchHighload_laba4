@@ -1,7 +1,8 @@
 #include <iostream>
 #include <string>
-#include <grpcpp/grpcpp.h>
+#include "grpcpp/grpcpp.h"
 #include "verification.pb.h"
+#include <cctype>
 
 using namespace std;
 
@@ -17,7 +18,7 @@ public:
 	VerificationClient(shared_ptr<Channel> channel):stub_(Verification::NewStub(channel)){}
 
 	bool CheckValidTelefon(string phone){
-		if phone.isDigit()
+		if (isDigit(phone))
 			return TRUE;
 		else
 			return FALSE;
