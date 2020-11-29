@@ -20,14 +20,21 @@ import os
 
 list_tel = ["70123456789", "71234567890", "72345678901", "73456789012"]
 
+def valid_tel(phone: str):
+	#норм телефон
+	#добавь в бд
+	
+
 @app.get("/check_tel")
-def check_tel(tel: str):
+def check_valid_telefon(phone: str):
 	print("tel = ", tel)
 	if tel in list_tel:
 		print("Нашел")
 		return True
 	else:
 		print("Не нашел")
+		if valid_tel(phone):
+			return True
 		return False
 
 if __name__ == "__main__":
