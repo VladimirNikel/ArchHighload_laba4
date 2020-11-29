@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package verif;
+
+service Verification {
+	rpc CheckValidTelefon(PhonePinRequest) returns (StatusResponse);
+}
+
+message PhonePinRequest {
+	int64 phone = 1;
+	int64 pin = 2;
+}
+
+message StatusResponse{
+	bool status = 1;
+}
+
+

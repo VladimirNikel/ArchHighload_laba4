@@ -1,0 +1,34 @@
+<html>
+	<head>
+	<title>Сервис верификации телефонных номеров</title>
+	<style>
+		button.knopka {
+			color: #fff; 
+			background: #FFA500; 
+			padding: 5px; 
+			border-radius: 5px;
+			border: 2px solid #FF8247;
+		} 
+		button.knopka:hover { 
+			background: #FF6347; 
+		}
+	</style>
+	</head>
+	<body>
+		<h1>Сервис верификации телефонных номеров</h1>
+		<table>
+		<tr>
+			<form action="/verif" method="GET" name="form1">
+				<td>
+					<p>Провести верификацию телефонного номера и кода к нему</p>
+					<p>Введите ваш запрос в форме GraphQL</p>
+					<textarea name="data" cols="40" rows="10"></textarea>
+				</td>
+				<td>
+					<button class="knopka">Провести проверку</button>
+				</td>
+			</form>
+		</tr>
+		</table>
+	</body>
+</html>
