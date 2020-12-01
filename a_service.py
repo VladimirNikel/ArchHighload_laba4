@@ -46,7 +46,7 @@ class Query(graphene.ObjectType):
 			temp_mass=[]
 			temp_mass.extend(i)
 			if phone in temp_mass:
-				if pin == temp_mass[2]:
+				if int(pin) == int(temp_mass[1]):
 					return temp_mass[2]
 				else:
 					return "pin neveren"
@@ -56,7 +56,6 @@ class Query(graphene.ObjectType):
 			stub 		= verification_pb2_grpc.VerificationStub(channel)					#create a stub (client)
 			number 		= verification_pb2.PhonePinRequest(phone=int(phone), pin=int(pin))	#create a valid request message
 			response 	= stub.CheckValidTelefon(number)									#обращение к сервису B
-		print("response.status\t", response.status)
 		
 		if response.status:	#телефон найден в базе сервиса Б
 			return check_valid_code(phone, pin)
@@ -73,9 +72,7 @@ def print_web():
 
 @app.get("/verif")
 def verif(data: str):
-	print("data\t",data)
 	result = schema.execute(data)
-	print(result)
 	return str(result)
 
 if __name__ == "__main__":

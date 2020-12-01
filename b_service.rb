@@ -3,7 +3,8 @@ require_relative 'verification_services_pb'
 
 class VerificationService < Verification::Service
 	def check_valid_telefon(request, _unused_call)
-		if request.phone =~ /^7\d{10}/
+		puts request.phone
+		if (request.phone).to_s =~ /^7\d{10}/
 			return StatusResponse.new(status: true)
 		end
 		StatusResponse.new(status: false)
