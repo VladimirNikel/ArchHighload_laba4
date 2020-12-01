@@ -19,45 +19,25 @@
 1. Из терминала выполнить команды:
 	```bash
 	python3 -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. verification.proto
-	protoc -I . --cpp_out=. ./verification.proto
+	grpc_tools_ruby_protoc -I. --ruby_out=. --grpc_out=. verification.proto
 	```
+1. Запустить *сервис Б* командой `ruby b_service.rb`
 1. Запустить *сервис А* командой `python3 a_service.py`
-1. Запустить *сервис Б* командой ` `
 1. Выполняем запрос к сервису А
   * Либо переходим в браузер [сюда](http://127.0.0.1:8000) и ввести `{status(phone: "<номер телефона>", pin:"<пин код>")}` в единственное поле
   * Либо выполняем команду из терминала 
   	* `curl "http://127.0.0.1:8000/verif?data=%7B+status+%28telefonNumber%3A+%22<номер телефона>%22%2C+pin%3A+%22<код>%22%29%7D"`
 
 
-
-
 ## Инструментарий:
 - GIT (устанавливается командой `sudo apt install git -y`)
 - protobuf (устанавливается командой `sudo apt  install protobuf-compiler`)
-- GCC и доп.модули (устанавливается командой `sudo apt install -y build-essential autoconf libtool pkg-config`)
-- grpc устанавливается выполнением команд:
-	```
-	git clone --recurse-submodules -b v1.33.2 https://github.com/grpc/grpc
-	cd grpc
-	mkdir -p cmake/build
-	pushd cmake/build
-	cmake ../.. -DgRPC_INSTALL=ON 		\
-		-DCMAKE_BUILD_TYPE=module 		\
-		-DgRPC_ABSL_PROVIDER=module 	\
-		-DgRPC_CARES_PROVIDER=module 	\
-		-DgRPC_PROTOBUF_PROVIDER=module \
-		-DgRPC_RE2_PROVIDER=module 		\
-		-DgRPC_SSL_PROVIDER=module 		\
-		-DgRPC_ZLIB_PROVIDER=module
-	make
-	sudo make install
-	```
-
-	На всякий случай оставлю [ссылку](https://github.com/grpc/grpc/blob/master/BUILDING.md).
+- ruby (устанавливается командой `sudo apt install ruby`)
 - Установленные модули:
 	+ FastAPI `sudo pip3 install fastapi`
 	+ Unicorn `sudo pip3 install uvicorn`
 	+ graphene `sudo pip3 install graphene`
+	+ protobuf `sudo pip3 install protobuf==3.13.0`
 	+ grpcio `sudo pip3 install grpcio`
 	+ grpcio-tools `sudo pip3 install grpcio-tools`
 

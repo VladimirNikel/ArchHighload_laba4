@@ -18,11 +18,13 @@ import uvicorn
 import json
 import requests
 import graphene
+import verification_pb2_grpc
+import verification_pb2
 
 telefon_list=[]
 
 def check_valid_code(phone: str, pin: str):
-	if pin.isdigit() and (pin >= 0 and pin <= 9999):
+	if pin.isdigit() and (int(pin) >= 0 and int(pin) <= 9999):
 		telefon_list.append([phone, pin, 'Confirmed'])		#занесение во временную таблицу данных, что код валиден
 	else:
 		telefon_list.append([phone, pin, 'Unconfirmed'])	#занесение во временную таблицу данных, что код не валиден
@@ -50,20 +52,13 @@ class Query(graphene.ObjectType):
 					return "pin neveren"
 		
 		#если телефон не найден во временной таблице
-		channel 	= grpc.insecure_channel('localhost:8002')							#open a gRPS channel
-		stub 		= verification_pb2_grps.VerificationStub(channel)					#create a stub (client)
-		number 		= verification_pb2.PhonePinRequest(phone=int(phone), pin=int(pin))	#create a valid request message
-		response 	= stub.CheckValidTelefon(number)									#обращение к сервису B
+		with grpc.insecure_channel('localhost:8002') as channel:							#open a gRPS channel
+			stub 		= verification_pb2_grpc.VerificationStub(channel)					#create a stub (client)
+			number 		= verification_pb2.PhonePinRequest(phone=int(phone), pin=int(pin))	#create a valid request message
+			response 	= stub.CheckValidTelefon(number)									#обращение к сервису B
 		print("response.status\t", response.status)
 		
-
-		#context_query='http://localhost:8002/check_tel'
-		#request = requests.get(context_query,params={'phone': str(args["phone"])}).text
-		#print("type request: ",type(request),"\trequest: ",request)
-		#if request == "true":
-		
-
-		if response.status == "True":	#телефон найден в базе сервиса Б
+		if response.status:	#телефон найден в базе сервиса Б
 			return check_valid_code(phone, pin)
 		else:
 			#вовзращение еще какой-то ошибки, что телефон невалиден

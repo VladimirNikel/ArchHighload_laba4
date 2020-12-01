@@ -14,8 +14,8 @@ class VerificationStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.CheckClient = channel.unary_unary(
-                '/verif.Verification/CheckClient',
+        self.CheckValidTelefon = channel.unary_unary(
+                '/Verification/CheckValidTelefon',
                 request_serializer=verification__pb2.PhonePinRequest.SerializeToString,
                 response_deserializer=verification__pb2.StatusResponse.FromString,
                 )
@@ -24,7 +24,7 @@ class VerificationStub(object):
 class VerificationServicer(object):
     """Missing associated documentation comment in .proto file."""
 
-    def CheckClient(self, request, context):
+    def CheckValidTelefon(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -33,14 +33,14 @@ class VerificationServicer(object):
 
 def add_VerificationServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'CheckClient': grpc.unary_unary_rpc_method_handler(
-                    servicer.CheckClient,
+            'CheckValidTelefon': grpc.unary_unary_rpc_method_handler(
+                    servicer.CheckValidTelefon,
                     request_deserializer=verification__pb2.PhonePinRequest.FromString,
                     response_serializer=verification__pb2.StatusResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'verif.Verification', rpc_method_handlers)
+            'Verification', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
 
 
@@ -49,7 +49,7 @@ class Verification(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
-    def CheckClient(request,
+    def CheckValidTelefon(request,
             target,
             options=(),
             channel_credentials=None,
@@ -59,7 +59,7 @@ class Verification(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/verif.Verification/CheckClient',
+        return grpc.experimental.unary_unary(request, target, '/Verification/CheckValidTelefon',
             verification__pb2.PhonePinRequest.SerializeToString,
             verification__pb2.StatusResponse.FromString,
             options, channel_credentials,

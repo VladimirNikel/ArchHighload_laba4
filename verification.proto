@@ -1,9 +1,8 @@
 syntax = "proto3";
 
-package verif;
 
 service Verification {
-	rpc CheckValidTelefon(PhonePinRequest) returns (StatusResponse);
+	rpc CheckValidTelefon(PhonePinRequest) returns (StatusResponse) {}
 }
 
 message PhonePinRequest {
@@ -14,5 +13,6 @@ message PhonePinRequest {
 message StatusResponse{
 	bool status = 1;
 }
+
 
 
